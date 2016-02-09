@@ -6,13 +6,13 @@ from gi.repository import GLib
 import qrcode
 
 
-def image2pixbuf(im):
+def pil_to_pixbuf(image):
     """
     Adapted from http://stackoverflow.com/questions/7906814/converting-pil-image-to-gtk-pixbuf and
     https://gist.github.com/mozbugbox/10cd35b2872628246140
     """
-    arr = GLib.Bytes.new(im.convert("RGB").tobytes())
-    width, height = im.size
+    arr = GLib.Bytes.new(image.convert("RGB").tobytes())
+    width, height = image.size
     return GdkPixbuf.Pixbuf.new_from_bytes(arr, GdkPixbuf.Colorspace.RGB, False, 8, width, height, width * 3)
 
 
@@ -22,10 +22,7 @@ class MainWindow(Gtk.Window):
         Gtk.Window.__init__(self, title="pyqrtray")
         self.connect("delete-event", Gtk.main_quit)
 
-        img = qrcode.make("test")
-        pix = image2pixbuf(img)
-
-        self.image = Gtk.Image.new_from_pixbuf(pix)
+        self.image = Gtk.Image.new_from_pixbuf(pil_to_pixbuf(qrcode.make("test")))
         self.add(self.image)
 
         self.show_all()
