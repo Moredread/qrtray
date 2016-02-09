@@ -22,11 +22,17 @@ class MainWindow(Gtk.Window):
         Gtk.Window.__init__(self, title="pyqrtray")
         self.connect("delete-event", Gtk.main_quit)
 
-        self.image = Gtk.Image.new_from_pixbuf(pil_to_pixbuf(qrcode.make("test")))
+        self.image = Gtk.Image()
+        self.update_qrcode("test")
         self.add(self.image)
 
         self.show_all()
 
+    def update_qrcode(self, text):
+        self._update_image_from_qrcode(text, self.image)
+
+    def _update_image_from_qrcode(self, text, image):
+        image.set_from_pixbuf(pil_to_pixbuf(qrcode.make(text)))
 
 def main():
     win = MainWindow()
