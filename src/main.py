@@ -23,10 +23,10 @@ class MainWindow(Gtk.Window):
         self.connect("delete-event", Gtk.main_quit)
 
         img = qrcode.make("test")
-        self.pix = image2pixbuf(img)
+        pix = image2pixbuf(img)
 
-        self.img = Gtk.Image.new_from_pixbuf(self.pix)
-        self.add(self.img)
+        self.image = Gtk.Image.new_from_pixbuf(pix)
+        self.add(self.image)
 
         self.show_all()
 
