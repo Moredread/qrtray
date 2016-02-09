@@ -1,6 +1,7 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 import qrcode
@@ -23,8 +24,12 @@ class MainWindow(Gtk.Window):
         self.connect("delete-event", Gtk.main_quit)
 
         self.image = Gtk.Image()
-        self.update_qrcode("test")
         self.add(self.image)
+
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+        text = clipboard.wait_for_text()
+        if text is not None:
+            self.update_qrcode(text)
 
         self.show_all()
 
