@@ -24,6 +24,9 @@ class MainWindow(Gtk.Window):
         Gtk.Window.__init__(self, title="pyqrtray")
         self.connect("delete-event", Gtk.main_quit)
 
+        color = Gdk.color_parse('white')
+        self.modify_bg(Gtk.StateType.NORMAL, color)
+
         self.image = Gtk.Image()
         self.add(self.image)
         self.old_clipboard_content = None
