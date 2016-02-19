@@ -22,7 +22,6 @@ class MainWindow(Gtk.Window):
 
     def __init__(self):
         Gtk.Window.__init__(self, title="pyqrtray")
-        self.connect("delete-event", Gtk.main_quit)
 
         color = Gdk.color_parse('white')
         self.modify_bg(Gtk.StateType.NORMAL, color)
@@ -69,6 +68,8 @@ def main():
     GObject.threads_init()
 
     win = MainWindow()
+    win.connect("delete-event", Gtk.main_quit)
+
     Gtk.main()
 
 if __name__ == "__main__":
