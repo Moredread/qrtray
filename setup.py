@@ -11,7 +11,7 @@ setup(name='pyqrtray',
       keywords='',
       author=u"André-Patrick Bubel",
       author_email=u"code@andre-bubel.de",
-      url='https://github.com/mapbox/pyskel',
+      url='https://github.com/Moredread/pyqrtray',
       license='GPL-3+',
       install_requires=[
           "pygobject",
