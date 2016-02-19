@@ -4,6 +4,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
+from gi.repository import GObject
 import qrcode
 
 
@@ -40,6 +41,8 @@ class MainWindow(Gtk.Window):
         image.set_from_pixbuf(pil_to_pixbuf(qrcode.make(text, border = 0, error_correction=qrcode.constants.ERROR_CORRECT_L)))
 
 def main():
+    GObject.threads_init()
+
     win = MainWindow()
     Gtk.main()
 
