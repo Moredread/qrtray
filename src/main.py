@@ -52,7 +52,6 @@ class MainWindow(Gtk.Window):
             return None
 
     def check_clipboard(self):
-        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         text = self.clipboard.wait_for_text()
         if text is not None and text != self.old_clipboard_content:
             print("new content")
