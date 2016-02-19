@@ -17,4 +17,9 @@ setup(name='pyqrtray',
           "pygobject",
           "qrcode",
       ],
+      entry_points={
+          'gui_scripts': [
+              'pyqrcode = pyqrcode.main:main',
+          ]
+      }
       )
