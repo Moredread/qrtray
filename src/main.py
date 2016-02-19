@@ -38,7 +38,8 @@ class MainWindow(Gtk.Window):
         self._update_image_from_qrcode(text, self.image)
 
     def _update_image_from_qrcode(self, text, image):
-        image.set_from_pixbuf(pil_to_pixbuf(qrcode.make(text, border = 0, error_correction=qrcode.constants.ERROR_CORRECT_L)))
+        image.set_from_pixbuf(pil_to_pixbuf(qrcode.make(text, border=0, error_correction=qrcode.constants.ERROR_CORRECT_L)))
+
 
 def main():
     GObject.threads_init()
