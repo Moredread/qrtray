@@ -13,4 +13,8 @@ setup(name='pyqrtray',
   author_email=u"code@andre-bubel.de",
   url='https://github.com/mapbox/pyskel',
   license='GPL-3+',
+  install_requires=[
+      "pygobject",
+      "qrcode",
+  ],
 )
