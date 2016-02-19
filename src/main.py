@@ -26,19 +26,40 @@ class MainWindow(Gtk.Window):
 
         self.image = Gtk.Image()
         self.add(self.image)
+        self.old_clipboard_content = None
 
-        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-        text = clipboard.wait_for_text()
-        if text is not None:
-            self.update_qrcode(text)
+        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+        self.check_clipboard()
+
+        GLib.timeout_add(100, self.__check_clipboard_callback)
 
         self.show_all()
 
     def update_qrcode(self, text):
-        self._update_image_from_qrcode(text, self.image)
+        self.__update_image_from_qrcode(text, self.image)
 
-    def _update_image_from_qrcode(self, text, image):
-        image.set_from_pixbuf(pil_to_pixbuf(qrcode.make(text, border=0, error_correction=qrcode.constants.ERROR_CORRECT_L)))
+    def __update_image_from_qrcode(self, text, image):
+        qr = self.__make_qrcode(text)
+        if qr != None:
+            image.set_from_pixbuf(pil_to_pixbuf(self.__make_qrcode(text)))
+
+    def __make_qrcode(self, text):
+        try:
+            return qrcode.make(text, border=0, error_correction=qrcode.constants.ERROR_CORRECT_L)
+        except qrcode.exceptions.DataOverflowError:
+            return None
+
+    def check_clipboard(self):
+        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+        text = self.clipboard.wait_for_text()
+        if text is not None and text != self.old_clipboard_content:
+            print("new content")
+            self.update_qrcode(text)
+            self.old_clipboard_content = text
+
+    def __check_clipboard_callback(self):
+        self.check_clipboard()
+        return True
 
 
 def main():
