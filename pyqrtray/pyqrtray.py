@@ -63,11 +63,26 @@ class MainWindow(Gtk.Window):
         return True
 
 
+class MainStatusIcon(Gtk.StatusIcon):
+
+    def __init__(self):
+        Gtk.StatusIcon.__init__(self)
+        self.set_from_stock(Gtk.STOCK_ABOUT)
+
+        self.connect("activate", self.new_window)
+        self.connect("popup-menu", Gtk.main_quit)
+
+    def new_window(self, event):
+        MainWindow()
+
+
 def main():
     GObject.threads_init()
 
-    win = MainWindow()
-    win.connect("delete-event", Gtk.main_quit)
+    #win = MainWindow()
+    #win.connect("delete-event", Gtk.main_quit)
+
+    icon = MainStatusIcon()
 
     Gtk.main()
 
