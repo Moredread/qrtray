@@ -1,7 +1,7 @@
 pyqrtray
 ======
 
-Not functional yet
+Shows the current clipboard content as a QR code. Great to send an URL or small amount of text to your smartphone.
 
 License
 -------
