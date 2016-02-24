@@ -86,10 +86,7 @@ class MainStatusIcon(Gtk.StatusIcon):
 
 def main():
     GObject.threads_init()
-
-    # win = MainWindow()
-    # win.connect("delete-event", Gtk.main_quit)
-
+    
     icon = MainStatusIcon()
 
     Gtk.main()
