@@ -32,8 +32,10 @@ class MainWindow(Gtk.Window):
 
         self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         self.check_clipboard()
+        self.clipboard_callback_id = GLib.timeout_add(1000, self.__check_clipboard_callback)
 
-        GLib.timeout_add(1000, self.__check_clipboard_callback)
+        self.connect("delete-event", self.__window_close_handler)
+
 
         self.show_all()
 
@@ -51,16 +53,28 @@ class MainWindow(Gtk.Window):
         except qrcode.exceptions.DataOverflowError:
             return None
 
+    def __window_close_handler(self, window, event):
+        print("Closing window")
+        self.stop_clipboard_listener()
+
+    def stop_clipboard_listener(self):
+        if self.clipboard_callback_id is not None:
+            GLib.source_remove(self.clipboard_callback_id)
+            self.clipboard_callback_id = None
+
     def check_clipboard(self):
         text = self.clipboard.wait_for_text()
         if text is not None and text != self.old_clipboard_content:
-            print("new content")
             self.update_qrcode(text)
             self.old_clipboard_content = text
 
     def __check_clipboard_callback(self):
         self.check_clipboard()
         return True
+
+    def __del__(self):
+        print("window removed")
+        self.stop_clipboard_listener()
 
 
 class MainStatusIcon(Gtk.StatusIcon):
@@ -76,9 +90,13 @@ class MainStatusIcon(Gtk.StatusIcon):
     def __activate_handler(self, event):
         self.toggle_window()
 
+    def __window_close_handler(self, window, event):
+        self.window = None
+
     def toggle_window(self):
         if self.window is None:
             self.window = MainWindow()
+            self.window.connect("delete-event", self.__window_close_handler)
         else:
             self.window.close()
             self.window = None
@@ -86,7 +104,7 @@ class MainStatusIcon(Gtk.StatusIcon):
 
 def main():
     GObject.threads_init()
-    
+
     icon = MainStatusIcon()
 
     Gtk.main()
