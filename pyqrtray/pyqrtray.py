@@ -1,4 +1,5 @@
 import gi
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -19,7 +20,6 @@ def pil_to_pixbuf(image):
 
 
 class MainWindow(Gtk.Window):
-
     def __init__(self):
         Gtk.Window.__init__(self, title="pyqrtray")
 
@@ -64,27 +64,36 @@ class MainWindow(Gtk.Window):
 
 
 class MainStatusIcon(Gtk.StatusIcon):
-
     def __init__(self):
+        self.window = None
+
         Gtk.StatusIcon.__init__(self)
         self.set_from_stock(Gtk.STOCK_ABOUT)
 
-        self.connect("activate", self.new_window)
+        self.connect("activate", self.__activate_handler)
         self.connect("popup-menu", Gtk.main_quit)
 
-    def new_window(self, event):
-        MainWindow()
+    def __activate_handler(self, event):
+        self.toggle_window()
+
+    def toggle_window(self):
+        if self.window is None:
+            self.window = MainWindow()
+        else:
+            self.window.close()
+            self.window = None
 
 
 def main():
     GObject.threads_init()
 
-    #win = MainWindow()
-    #win.connect("delete-event", Gtk.main_quit)
+    # win = MainWindow()
+    # win.connect("delete-event", Gtk.main_quit)
 
     icon = MainStatusIcon()
 
     Gtk.main()
+
 
 if __name__ == "__main__":
     main()
