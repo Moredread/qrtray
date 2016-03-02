@@ -6,7 +6,7 @@ Shows the current clipboard content as a QR code. Great to send an URL or small 
 License
 -------
 
-qrtray, a clipboard to QR code converter
+qrtray, shows the current clipboard content as a QR code
 
 Copyright (C) 2016  André-Patrick Bubel
 
