@@ -2,7 +2,7 @@
 from setuptools import setup
 
 with open("README.md", "r") as f:
-    long_description = "\n".join(f.readlines())
+    long_description = "".join(f.readlines())
 
 setup(name='qrtray',
       version='0.0.1',
