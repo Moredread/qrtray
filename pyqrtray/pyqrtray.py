@@ -33,7 +33,7 @@ class MainWindow(Gtk.Window):
         self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         self.check_clipboard()
 
-        GLib.timeout_add(100, self.__check_clipboard_callback)
+        GLib.timeout_add(1000, self.__check_clipboard_callback)
 
         self.show_all()
 
