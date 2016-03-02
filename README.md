@@ -1,4 +1,4 @@
-pyqrtray
+qrtray
 ======
 
 Shows the current clipboard content as a QR code. Great to send an URL or small amount of text to your smartphone.
@@ -6,7 +6,7 @@ Shows the current clipboard content as a QR code. Great to send an URL or small 
 License
 -------
 
-pyqrtray, a clipboard content to QR code converter
+qrtray, a clipboard to QR code converter
 
 Copyright (C) 2016  André-Patrick Bubel
 
