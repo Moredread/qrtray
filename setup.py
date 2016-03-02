@@ -30,7 +30,7 @@ setup(name='qrtray',
       ],
       entry_points={
           'gui_scripts': [
-              'pyqrtray = pyqrtray.pyqrtray:main',
+              'qrtray = qrtray.qrtray:main',
           ]
       }
       )
