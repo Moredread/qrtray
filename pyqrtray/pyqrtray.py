@@ -81,12 +81,33 @@ class MainWindow(Gtk.Window):
 class MainStatusIcon(Gtk.StatusIcon):
     def __init__(self):
         self.window = None
+        self.menu = None
 
         Gtk.StatusIcon.__init__(self)
         self.set_from_stock(Gtk.STOCK_ABOUT)
 
         self.connect("activate", self.__activate_handler)
-        self.connect("popup-menu", Gtk.main_quit)
+        self.connect("popup-menu", self.__popup_menu_handler)
+
+    def create_menu(self, button, activate_time):
+        menu = Gtk.Menu()
+
+        toggle_window_item = Gtk.MenuItem("Toggle")
+        exit_item = Gtk.MenuItem("Exit")
+
+        toggle_window_item.connect("activate", self.__activate_handler)
+        exit_item.connect("activate", Gtk.main_quit)
+
+        menu.append(toggle_window_item)
+        menu.append(exit_item)
+        menu.show_all()
+
+        menu.popup(None, None, None, None, button, activate_time)
+
+        return menu
+
+    def __popup_menu_handler(self, icon, button, activate_time):
+        self.menu = self.create_menu(button, activate_time)
 
     def __activate_handler(self, event):
         self.toggle_window()
