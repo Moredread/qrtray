@@ -1,11 +1,13 @@
 import gi
 
 gi.require_version('Gtk', '3.0')
+
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import GObject
+
 import qrcode
 
 
@@ -35,7 +37,6 @@ class MainWindow(Gtk.Window):
         self.clipboard_callback_id = GLib.timeout_add(1000, self.__check_clipboard_callback)
 
         self.connect("delete-event", self.__window_close_handler)
-
 
         self.show_all()
 
