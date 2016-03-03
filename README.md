@@ -3,6 +3,8 @@ qrtray
 
 Shows the current clipboard content as a QR code. Great to send an URL or small amount of text to your smartphone.
 
+It is already working, but I'm not really happy with the code structure.
+
 License
 -------
 
