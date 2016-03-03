@@ -100,7 +100,7 @@ with open("README.md", "r") as f:
     long_description = "".join(f.readlines())
 
 setup(name='qrtray',
-      version='1.0.0',
+      version='1.0.1',
       description=u"Shows the current clipboard content as a QR code",
       long_description=long_description,
       classifiers=["Environment :: X11 Applications :: GTK",
