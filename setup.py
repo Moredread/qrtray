@@ -92,6 +92,9 @@ if cx == True:
 else:
     executables = []
 
+include_files.append("README.md")
+include_files.append("LICENSE")
+
 buildOptions = dict(
     compressed = True,
     includes = ["gi"],
