@@ -71,6 +71,8 @@ for dll in missing_dll:
 for lib in gtk_libs:
     include_files.append((os.path.join(include_dll_path, lib), lib))
 
+include_files.append((os.path.join(include_dll_path, 'license'),'license.gtk'))
+
 base = None
 
 ## Lets not open the console while running the app
